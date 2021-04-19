@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: mysql-test
+  namespace: default
+subsets:
+  - addresses:
+    - ip: 192.168.50.11  
+    ports:
+      - port: 3306 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-test    
+  labels:
+    app: abc
+spec:
+  ports:
+    - port: 3306
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx6     
+  labels:
+    app: db
+spec:
+ containers:
+  - name: mysql-test
+    image: nginx:latest
